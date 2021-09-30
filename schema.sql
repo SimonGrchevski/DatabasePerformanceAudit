@@ -58,8 +58,13 @@ INSERT INTO visits (animals_id, vet_id, date_of_visit) SELECT * FROM (SELECT id 
 -- This will add 2.500.000 owners with full_name = 'Owner <X>' and email = 'owner_<X>@email.com' (~2min approx.)
 insert into owners (full_name, email) select 'Owner ' || generate_series(1,2500000), 'owner_' || generate_series(1,2500000) || '@mail.com';
 
+
+-- create index to improve SELECT * FROM owners where email = 'owner_18327@mail.com';
+create index owners_id on owners(email desc);
+-- create index to improve SELECT COUNT(*) FROM visits where animal_id = 4;
+create index animals_visit_id on visits(animals_id desc);
 -- create index to improve the SELECT * FROM visits where vet_id = 2
-create index visits_id on visits(vet_id desc);
+create index vet_visits_id on visits(vet_id desc);
 
 -- increase the parallel workers.
 set max_parallel_workers_per_gather to 10;
