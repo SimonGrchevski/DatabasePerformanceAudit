@@ -64,7 +64,8 @@ create index visits_id on visits(vet_id desc);
 -- increase the parallel workers.
 set max_parallel_workers_per_gather to 10;
 alter table animals  set (parallel_workers = 9 );
-
+create index on the primary key
+create index owners_i on owners(id);
 
 ALTER TABLE animals
 ADD species char(50);
